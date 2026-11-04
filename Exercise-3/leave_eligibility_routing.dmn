@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" id="Definitions_LeaveDMN" name="Leave eligibility and routing" namespace="http://xyz-corp.example/leave-approval">
+  <decision id="leave-eligibility-routing" name="Leave eligibility and routing">
+    <decisionTable id="DecisionTable_Leave" hitPolicy="FIRST">
+      <input id="Input_LeaveType" label="Leave type"><inputExpression id="InputExpression_LeaveType" typeRef="string"><text>leaveType</text></inputExpression></input>
+      <input id="Input_Days" label="Requested days"><inputExpression id="InputExpression_Days" typeRef="number"><text>requestedDays</text></inputExpression></input>
+      <input id="Input_BalanceAfter" label="Balance after request"><inputExpression id="InputExpression_BalanceAfter" typeRef="number"><text>availableBalance - requestedDays</text></inputExpression></input>
+      <output id="Output_Outcome" name="outcome" label="Routing outcome" typeRef="string" />
+      <rule id="Rule_Insufficient"><inputEntry id="I1a"><text>-</text></inputEntry><inputEntry id="I1b"><text>-</text></inputEntry><inputEntry id="I1c"><text>&lt; 0</text></inputEntry><outputEntry id="O1"><text>"INSUFFICIENT_BALANCE"</text></outputEntry></rule>
+      <rule id="Rule_AutoSick"><inputEntry id="I2a"><text>"Sick"</text></inputEntry><inputEntry id="I2b"><text>&lt;= 3</text></inputEntry><inputEntry id="I2c"><text>&gt;= 0</text></inputEntry><outputEntry id="O2"><text>"AUTO_APPROVED"</text></outputEntry></rule>
+      <rule id="Rule_Manager"><inputEntry id="I3a"><text>-</text></inputEntry><inputEntry id="I3b"><text>-</text></inputEntry><inputEntry id="I3c"><text>&gt;= 0</text></inputEntry><outputEntry id="O3"><text>"MANAGER_REVIEW"</text></outputEntry></rule>
+    </decisionTable>
+  </decision>
+</definitions>
